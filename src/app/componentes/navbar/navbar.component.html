@@ -1,0 +1,27 @@
+<nav class="navbar" [ngClass]="{ 'visible': navbarVisible, 'hidden': !navbarVisible }">
+    <div class="navbar__content">
+      <div class="navbar__logo" > <img src="imagenes/firma-fernando.png" alt="Logo Fernando Arzate" />
+
+      </div>
+  
+      <button class="navbar__menu-button" (click)="toggleMenu()">
+        <span [class.open]="menuOpen"></span>
+        <span [class.open]="menuOpen"></span>
+        <span [class.open]="menuOpen"></span>
+      </button>
+    </div>
+  
+    <div class="navbar__overlay" [class.open]="menuOpen">
+      <div class="navbar__close-button">
+        <button (click)="closeMenu()">X</button>
+      </div>
+  
+      <ul class="navbar__links">
+        <li><a href="#inicio" (click)="closeMenu()">Inicio</a></li>
+        <li><a href="#proyectos" (click)="closeMenu()">Proyectos</a></li>
+        <li><a href="#sobre-mi" (click)="closeMenu()">Sobre mí</a></li>
+        <li><a href="#contacto" (click)="closeMenu()">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+  
