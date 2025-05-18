@@ -1,10 +1,11 @@
 
   
 .hero {
+    background-attachment: fixed; /* Activa el efecto parallax */
     height: 100vh;
     position: relative;
      background-color: rgba(0, 0, 0, 0.7); 
-    background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fG1vYmlsZXxlbnwwfHx8fDE2ODQ5NTY3NzE&ixlib=rb-4.0.3&q=80&w=1080');
+     background-image: url('https://images.unsplash.com/photo-1566807387450-b74aea0e727e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
@@ -24,6 +25,7 @@
   
   .hero__content h1 {
     font-size: 4rem;
+    font-family: 'Cal Sans', sans-serif;
     margin: 0;
     font-weight: bold;
     letter-spacing: 2px;
@@ -48,6 +50,7 @@
     position: absolute;
     bottom: 20px;
     font-size: 2rem;
+    color:coral;
     animation: bounce 2s infinite;
   }
   
