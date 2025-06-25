@@ -4,51 +4,47 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
 }
 
-body {
-  background-image: linear-gradient(
-      283deg,
-      rgba(228, 228, 228, 0.04) 0%,
-      rgba(228, 228, 228, 0.04) 30%,
-      rgba(130, 130, 130, 0.04) 30%,
-      rgba(130, 130, 130, 0.04) 49%,
-      rgba(31, 31, 31, 0.04) 49%,
-      rgba(31, 31, 31, 0.04) 100%
-    ),
-    linear-gradient(
-      297deg,
-      rgba(228, 228, 228, 0.04) 0%,
-      rgba(228, 228, 228, 0.04) 20%,
-      rgba(130, 130, 130, 0.04) 20%,
-      rgba(130, 130, 130, 0.04) 60%,
-      rgba(31, 31, 31, 0.04) 60%,
-      rgba(31, 31, 31, 0.04) 100%
-    ),
-    linear-gradient(
-      242deg,
-      rgba(228, 228, 228, 0.04) 0%,
-      rgba(228, 228, 228, 0.04) 29%,
-      rgba(130, 130, 130, 0.04) 29%,
-      rgba(130, 130, 130, 0.04) 48%,
-      rgba(31, 31, 31, 0.04) 48%,
-      rgba(31, 31, 31, 0.04) 100%
-    ),
-    linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
-    
-}
-
-
-p {
-  font-size: 1.2rem; /* Tamaño de la fuente */
-  color: #f0f0f0; /* Color del texto */
-  line-height: 1.7; /* Espaciado entre líneas para mejor legibilidad */
-  margin-bottom: 1.5rem; /* Espacio debajo de cada párrafo */
+h2 {
+  font-size: 2.5rem; /* Tamaño de la fuente */
+  color: #000000; /* Color del texto */
+  line-height: 1.5; /* Espaciado entre líneas para mejor legibilidad */
+  margin-bottom: 1rem; /* Espacio debajo de cada párrafo */
   text-align: left; /* Alineación del texto (izquierda, centro, derecha, justificado) */
   max-width: 700px; /* Ancho máximo para evitar que el texto se extienda demasiado */
   margin-left: auto; /* Para centrar si tienes un max-width */
   margin-right: auto; /* Para centrar si tienes un max-width */
   font-weight: 400; /* Grosor de la fuente (normal, bold, etc.) */
-  /* Otras propiedades CSS que desees aplicar */
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+
+
+.bienvenida {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+  justify-content: center;
+  color: #000000;
+  background-color: green;
+}
+
+.titulo-bienvenida {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  color: #ff0000;
+}
+
+.parrafo-bienvenida {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #c51010;
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
 }
