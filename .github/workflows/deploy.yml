@@ -3,7 +3,7 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - main # Se activa cuando haces push a la rama 'main'
+      - main
 
 permissions:
   contents: write
@@ -27,19 +27,18 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
-      # --- PASO CRÍTICO DE COMPILACIÓN ---
-      # Reemplaza '/botiquin-familiar/' con el nombre de tu repo entre barras
+      # --- CORRECCIÓN CRÍTICA PARA REPO DE USUARIO ---
+      # Al llamarse 'BreChangu.github.io', la base es la raíz '/'
       - name: Build
-        run: ng build --configuration production --base-href=/PORTAFOLIO/
+        run: ng build --configuration production --base-href=/
 
-      # --- TRUCO PARA EL ERROR 404 EN GITHUB PAGES ---
-      # GitHub Pages no soporta rutas de Angular (SPA) nativamente.
-      # Este truco copia index.html a 404.html para que al recargar no falle.
+      # --- TRUCO PARA EL 404 ---
+      # Asegúrate de que 'dist/portafolio/browser' coincida con tu angular.json
       - name: Copy index.html to 404.html
-        run: cp dist/PORTAFOLIO/browser/index.html dist/PORTAFOLIO/browser/404.html
+        run: cp dist/portafolio/browser/index.html dist/portafolio/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/PORTAFOLIO/browser # La carpeta que genera el build
-          branch: gh-pages # La rama donde vivirá la web compilada
+          folder: dist/portafolio/browser
+          branch: gh-pages
