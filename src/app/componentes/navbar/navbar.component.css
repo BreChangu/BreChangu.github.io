@@ -1,203 +1,206 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* NAVBAR BASE */
+/* Importamos la fuente para consistencia */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
 
-.navbar {
-    position: sticky;
-    width:100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo transparente */
-    transition: background-color 0.3s ease;
-    z-index: 1000; /* Asegura que la navbar siempre esté por encima del contenido */
-  }
-  
-  .navbar__logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar__logo img {
-    width: 20%;  /* Ajusta el tamaño de tu logo */
-    height: auto;
-    transition: all 0.3s ease;
-    margin:1px 3px 3px ;
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  /* Asegura que los enlaces de la navbar también se mantengan en la parte superior */
-  .navbar__links {
-    display: flex;
-    flex-direction:column;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    font-family: 'Cal Sans', sans-serif;
-  }
-  
-  .navbar__links a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .navbar__toggle {
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  /* Hacer que la navbar sea opaca al hacer scroll */
-  .navbar {
-    background-color: transparent;
-    transition: background-color 0.5s ease;
-  }
-  .navbar.visible {
-    background-color: rgba(231, 250, 243, 0.3);
-  }
-  
-  /* Estilo de los enlaces cuando el menú está cerrado */
-  .navbar__links--closed {
-    display: none; /* Oculta los enlaces por defecto */
+:host {
+  display: block;
+  font-family: 'Manrope', sans-serif;
 }
-  
-  /* Estilo de los enlaces cuando el menú está abierto */
-  .navbar__links--open {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-  }
-  
-  
-  .navbar.hidden {
-    top: -100px; /* Esconde la navbar fuera de la pantalla */
-  }
-  
-  /* Cuando el scroll se activa, la clase 'hidden' es removida */
-  .navbar.visible {
-    top: 0; /* La navbar vuelve a la parte superior */
-  }
-  
-  .navbar__content {
+
+/* --- BARRA DE NAVEGACIÓN PRINCIPAL --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: transparent; /* Transparente al inicio */
+}
+
+/* Estado cuando haces Scroll (Glassmorphism) */
+.navbar.scrolled {
+  padding: 1rem 2rem; /* Se hace más pequeña */
+  background-color: rgba(10, 10, 10, 0.8); /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(12px); /* Efecto borroso estilo Apple/Windows 11 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- LOGO --- */
+.navbar__logo img {
+  height: 40px; /* Altura controlada */
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Asegura que el logo sea blanco si es un PNG negro */
+  transition: transform 0.3s ease;
+}
+
+.navbar__logo img:hover {
+  transform: scale(1.05);
+}
+
+/* --- DESKTOP LINKS (Ocultos en móvil por defecto) --- */
+.desktop-links {
+  display: none; /* Se activa en media query */
+  list-style: none;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+/* Efecto de línea debajo al hacer hover */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Botón destacado de contacto */
+.btn-contact {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+/* --- HAMBURGER BUTTON (Para móvil) --- */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002; /* Por encima del overlay */
+}
+
+.bar {
+  width: 30px;
+  height: 2px;
+  background-color: white; /* Blanco, no rojo */
+  transition: all 0.3s ease;
+}
+
+/* Animación del botón hamburguesa a X */
+.hamburger-btn.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+.hamburger-btn.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-btn.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* --- MOBILE OVERLAY --- */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #0a0a0a; /* Fondo sólido oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  z-index: 1001;
+}
+
+.mobile-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-links {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.mobile-links li {
+  margin: 2rem 0;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Animación de entrada de los enlaces */
+.mobile-overlay.open .mobile-links li {
+  transform: translateY(0);
+  opacity: 1;
+}
+/* Retraso en cascada para los enlaces */
+.mobile-overlay.open .mobile-links li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-overlay.open .mobile-links li:nth-child(2) { transition-delay: 0.2s; }
+.mobile-overlay.open .mobile-links li:nth-child(3) { transition-delay: 0.3s; }
+.mobile-overlay.open .mobile-links li:nth-child(4) { transition-delay: 0.4s; }
+
+.mobile-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 2.5rem;
+  font-weight: 800;
+  transition: color 0.3s;
+}
+
+.mobile-links a:hover {
+  color: #666; /* O un color de acento si prefieres */
+}
+
+/* --- MEDIA QUERY (EL CEREBRO RESPONSIVO) --- */
+@media (min-width: 769px) {
+  /* En pantallas grandes: Mostrar links, ocultar hamburguesa */
+  .desktop-links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
-  
-  /* LOGO / NOMBRE */
-  .navbar__logo {
-    font-size: 1.1rem;
-    letter-spacing: 2px;
+  .hamburger-btn {
+    display: none;
   }
-  
-  /* MENU BUTTON */
-  .navbar__menu-button {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+  .mobile-overlay {
+    display: none; /* Asegura que nunca se vea en desktop */
   }
-  
-  .navbar__menu-button span {
-    width: 25px;
-    height: 2px;
-    background: red;
-    transition: all 0.3s ease;
-  }
-  
-  /* HAMBURGER ANIMATION */
-  .navbar__menu-button span.open:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  
-  .navbar__menu-button span.open:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .navbar__menu-button span.open:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-  
-  /* OVERLAY MENU */
-  .navbar__overlay {
-    position: fixed;
-    top: 0;
-    left: 100%;
-    width: 100%;
-    height: 100vh;
-    background: rgba(10, 10, 10, 0.95);
-    transition: left 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .navbar__overlay.open {
-    left: 0;
-  }
-  
-  .navbar__links {
-    list-style: none;
-    text-align: center;
-  }
-  
-  .navbar__links li {
-    margin: 1.5rem 0;
-  }
-  
-  .navbar__links a {
-    color: white;
-    text-decoration: none;
-    font-size: 2rem;
-    transition: color 0.3s;
-  }
-  
-  .navbar__links a:hover {
-    color: #ff8f00;
-  }
-  
-  /* CLOSE BUTTON */
-  .navbar__close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    border-radius:50%
-  }
-  
-  .navbar__close-button button {
-    width: 40px; /* Establecemos un valor igual para el ancho */
-    height: 40px; /* Establecemos un valor igual para la altura */
-    background-color: transparent;
-    border: 2px solid white;
-    color: white;
-    padding: 0;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 50%; /* Hacemos que el botón sea redondo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .navbar__close-button button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  
- 
+}

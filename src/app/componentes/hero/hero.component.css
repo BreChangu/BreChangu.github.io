@@ -1,72 +1,217 @@
+/* Importamos la fuente para asegurar consistencia */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700;800&display=swap');
 
-  
-.hero {
-    background-attachment: fixed; /* Activa el efecto parallax */
-    height: 100vh;
-    position: relative;
-     background-color: rgba(0, 0, 0, 0.7); 
-     background-image: url('https://images.unsplash.com/photo-1566807387450-b74aea0e727e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-repeat: no-repeat;
-    /* background-attachment: fixed; */
-    background-position: center;
-    display: flex;
+:host {
+  display: block;
+}
+
+.hero-container {
+  position: relative;
+  height: 90vh; /* Ocupa casi toda la pantalla */
+  width: 100%;
+  background-color: #0a0a0a; /* Mismo fondo oscuro que proyectos */
+  color: #ffffff;
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centrado, pero se puede alinear a la izquierda si prefieres */
+  overflow: hidden; /* Para que el brillo no se salga */
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* --- EFECTO GLOW DE FONDO --- */
+.ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(76, 29, 149, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+/* --- CONTENIDO --- */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge pequeño arriba */
+.welcome-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Título Gigante */
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem); /* Responsivo: se adapta al ancho */
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.03em;
+}
+
+/* Efecto "Outline" (Solo borde) para el apellido - Muy moderno */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.hero-title:hover .text-outline {
+  color: #fff; /* Se rellena al pasar el mouse */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Subtítulo / Rol */
+.hero-role {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  color: #ccc;
+  margin: 0 0 24px 0;
+}
+
+.separator {
+  color: #666;
+  font-style: italic;
+  margin: 0 10px;
+}
+
+/* Descripción */
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #888;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero-description strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* --- BOTONES --- */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Manrope', sans-serif;
+}
+
+.btn-primary {
+  background-color: #fff;
+  color: #000;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* --- SCROLL INDICATOR --- */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.scroll-indicator p {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mouse {
+  width: 26px;
+  height: 40px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  position: relative;
+}
+
+.wheel {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll {
+  0% { top: 6px; opacity: 1; }
+  100% { top: 20px; opacity: 0; }
+}
+
+/* --- ANIMACIONES DE ENTRADA --- */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards ease-out;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-actions {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    color: white;
-    text-align: center;
-    top:0;
-    z-index: 1;
-
-  
+    width: 100%;
   }
-  
-  .hero__content h1 {
-    font-size: 4rem;
-    font-family: 'Cal Sans', sans-serif;
-    margin: 0;
-    font-weight: bold;
-    letter-spacing: 2px;
-    animation: fadeInUp 1s ease-out;
+  button {
+    width: 100%;
   }
-  
-  .hero__content h2 {
-    font-size: 2rem;
-    margin-top: 10px;
-    font-weight: 300;
-    animation: fadeInUp 1.2s ease-out;
-  }
-  
-  .hero__content p {
-    font-size: 1.1rem;
-    margin-top: 20px;
-    max-width: 600px;
-    animation: fadeInUp 1.4s ease-out;
-  }
-  
-  .hero__scroll-indicator {
-    position: absolute;
-    bottom: 20px;
-    font-size: 2rem;
-    color:coral;
-    animation: bounce 2s infinite;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
+}

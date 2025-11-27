@@ -1,63 +1,29 @@
-<div class="container">
-  <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">Huevos Perrito</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
-  <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
-  <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
-  <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
-    <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
-    <div class="flip" (click)="expandCard($event)">
-    <div class="front" style="background-image: url('https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg')">
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>Herramientas que hacen el desarrollo más eficiente.</p>
-    </div>
-  </div>
-
+<section class="portfolio-section">
   
-</div>
+  <header class="portfolio-header">
+    <h2 class="subtitle">TRABAJOS SELECCIONADOS</h2>
+    <h1 class="title">Proyectos <span class="highlight">Destacados</span></h1>
+  </header>
+
+  <div class="bento-grid">
+    <article 
+      class="project-card" 
+      *ngFor="let proyecto of proyectos"
+      [ngClass]="proyecto.size"> <div class="card-content">
+        <div class="image-wrapper">
+          <img [src]="proyecto.imagen" [alt]="proyecto.titulo" loading="lazy">
+        </div>
+        
+        <div class="card-info">
+          <div class="tags">
+            <span *ngFor="let tag of proyecto.tags" class="tag">{{ tag }}</span>
+          </div>
+          <h3>{{ proyecto.titulo }}</h3>
+          <button class="btn-arrow">↗</button>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+</section>

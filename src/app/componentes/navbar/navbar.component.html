@@ -1,27 +1,31 @@
-<nav class="navbar" [ngClass]="{ 'visible': navbarVisible, 'hidden': !navbarVisible }">
-    <div class="navbar__content">
-      <div class="navbar__logo" > <img src="imagenes/firma-fernando.png" alt="Logo Fernando Arzate" />
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar__container">
+    
+    <div class="navbar__logo">
+      <img src="assets/firma-fernando.png" alt="Fernando Arzate Logo" />
+    </div>
 
-      </div>
-  
-      <button class="navbar__menu-button" (click)="toggleMenu()">
-        <span [class.open]="menuOpen"></span>
-        <span [class.open]="menuOpen"></span>
-        <span [class.open]="menuOpen"></span>
-      </button>
-    </div>
-  
-    <div class="navbar__overlay" [class.open]="menuOpen">
-      <div class="navbar__close-button">
-        <button (click)="closeMenu()">X</button>
-      </div>
-  
-      <ul class="navbar__links">
-        <li><a href="#inicio" (click)="closeMenu()">Inicio</a></li>
-        <li><a href="#proyectos" (click)="closeMenu()">Proyectos</a></li>
-        <li><a href="#sobre-mi" (click)="closeMenu()">Sobre mí</a></li>
-        <li><a href="#contacto" (click)="closeMenu()">Contacto</a></li>
-      </ul>
-    </div>
-  </nav>
-  
+    <ul class="desktop-links">
+      <li><a href="#inicio" class="nav-link">Inicio</a></li>
+      <li><a href="#about" class="nav-link">Sobre mí</a></li>
+      <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
+      <li><a href="#contacto" class="btn-contact">Contacto</a></li>
+    </ul>
+
+    <button class="hamburger-btn" (click)="toggleMenu()" [class.active]="menuOpen" aria-label="Abrir menú">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+  </div>
+
+  <div class="mobile-overlay" [class.open]="menuOpen">
+    <ul class="mobile-links">
+      <li><a href="#inicio" (click)="closeMenu()">Inicio</a></li>
+      <li><a href="#about" (click)="closeMenu()">Sobre mí</a></li>
+      <li><a href="#proyectos" (click)="closeMenu()">Proyectos</a></li>
+      <li><a href="#contacto" (click)="closeMenu()">Contacto</a></li>
+    </ul>
+  </div>
+</nav>

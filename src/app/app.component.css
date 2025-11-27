@@ -1,50 +1,139 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
+/* Importamos la misma fuente que en proyectos para consistencia */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap');
+
+/* Reset básico local */
+:host {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  background-color: #0a0a0a; /* Fondo oscuro global */
+  color: #ffffff;
+  overflow-x: hidden;
 }
 
-h2 {
-  font-size: 2.5rem; /* Tamaño de la fuente */
-  color: #000000; /* Color del texto */
-  line-height: 1.5; /* Espaciado entre líneas para mejor legibilidad */
-  margin-bottom: 1rem; /* Espacio debajo de cada párrafo */
-  text-align: left; /* Alineación del texto (izquierda, centro, derecha, justificado) */
-  max-width: 700px; /* Ancho máximo para evitar que el texto se extienda demasiado */
-  margin-left: auto; /* Para centrar si tienes un max-width */
-  margin-right: auto; /* Para centrar si tienes un max-width */
-  font-weight: 400; /* Grosor de la fuente (normal, bold, etc.) */
-  font-family: Arial, Helvetica, sans-serif;
-  
+/* --- SECCIÓN PRINCIPAL --- */
+.about-section {
+  padding: 8rem 2rem; /* Mucho aire arriba y abajo */
+  background-color: #0a0a0a;
+  position: relative;
 }
 
-
-
-.bienvenida {
-  max-width: 800px;
+.about-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  text-align: center;
-  justify-content: center;
-  color: #000000;
-  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 4rem;
+  align-items: flex-start;
 }
 
-.titulo-bienvenida {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 4rem;
+/* --- TIPOGRAFÍA --- */
+.overline {
+  font-size: 0.875rem; /* 14px */
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #888;
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.name-title {
+  font-size: 4.5rem; /* Muy grande para impacto */
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.highlight {
+  color: #888; /* Estilo bitonal (blanco/gris) muy moderno */
+  /* Opcional: Si quieres color, usa un degradado: */
+  /* background: linear-gradient(45deg, #4facfe, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  */
+}
+
+.role-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #ccc;
+  margin: 0;
+}
+
+/* --- CONTENIDO DE TEXTO --- */
+.bio-text {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+  color: #b0b0b0;
   margin-bottom: 1.5rem;
-  text-align: left;
-  color: #ff0000;
+  font-weight: 300;
 }
 
-.parrafo-bienvenida {
-  font-size: 1.25rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  color: #c51010;
-  font-family: 'Roboto Mono', monospace;
-  text-align: center;
+.bio-text strong {
+  color: white;
+  font-weight: 600;
 }
+
+/* --- BOTÓN MODERNO --- */
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: white;
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-contact .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-contact:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* --- ANIMACIONES DE ENTRADA --- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr; /* Una sola columna en móvil */
+    gap: 2rem;
+  }
+
+  .name-title {
+    font-size: 3rem; /* Ajuste de tamaño */
+  }
+  
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
+}
+  .about-container {
+    grid-template-columns: 1fr;
+  }

@@ -1,19 +1,32 @@
 <app-navbar></app-navbar>
-<br>
 
 <app-hero></app-hero>
-<br>
-<h2>Bienvenido a mi portafolio</h2>
 
+<section class="about-section" id="about">
+  <div class="about-container">
+    
+    <div class="about-header reveal-on-scroll">
+      <span class="overline">ACERCA DE MÍ</span>
+      <h2 class="name-title">Fernando <span class="highlight">Arzate</span></h2>
+      <h3 class="role-title">Creative Frontend Developer</h3>
+    </div>
 
-<p class="parrafo-bienvenida">¡Hola! Soy Fernando Arzate, y constantemente exploro la intersección entre el arte y la tecnología.
-    <br>
-    <br>
-    <br> Mi pasión reside en el diseño gráfico y el desarrollo frontend, donde encuentro la alegría de construir soluciones digitales que no solo se ven increíbles, sino que también funcionan a la perfección.</p>
-<p class="parrafo-bienvenida">Si deseas ponerte en contacto conmigo, no dudes en visitar la sección de contacto.</p>
+    <div class="about-content reveal-on-scroll delay-200">
+      <p class="bio-text">
+        Constantemente exploro la intersección entre el <strong>arte</strong> y la <strong>tecnología</strong>.
+      </p>
+      <p class="bio-text">
+        Mi enfoque no es solo hacer que las cosas funcionen, sino que se sientan bien al usarlas. Fusiono el diseño gráfico con la lógica del desarrollo para construir soluciones digitales que destacan por su estética y rendimiento.
+      </p>
+      
+      <a routerLink="/contacto" class="btn-contact">
+        Trabajemos Juntos <span class="arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
 <app-proyectos></app-proyectos>
-<br>
 
 <router-outlet></router-outlet>
-
-

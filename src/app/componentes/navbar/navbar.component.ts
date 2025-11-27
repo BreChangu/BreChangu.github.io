@@ -1,31 +1,36 @@
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component,HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule] // Agregamos CommonModule aquí
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   menuOpen = false;
-  navbarVisible = false;
+  isScrolled = false;
 
-  // Detectar cuando el usuario hace scroll
+  // Detectar scroll para efecto glassmorphism
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (window.pageYOffset > 20) { // Cambia 100 por el valor que prefieras
-      this.navbarVisible = true;
-    } else {
-      this.navbarVisible = false;
-    }
+    this.isScrolled = window.scrollY > 50; // Se activa después de 50px de scroll
   }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+    
+    // Bloquear el scroll del body cuando el menú está abierto
+    if (this.menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
   closeMenu() {
     this.menuOpen = false;
+    document.body.style.overflow = 'auto';
   }
 }
