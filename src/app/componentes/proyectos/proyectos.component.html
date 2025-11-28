@@ -1,29 +1,44 @@
 <section class="portfolio-section">
   
   <header class="portfolio-header">
-    <h2 class="subtitle">TRABAJOS SELECCIONADOS</h2>
+    <h2 class="subtitle">Trabajos Seleccionados</h2>
     <h1 class="title">Proyectos <span class="highlight">Destacados</span></h1>
   </header>
 
   <div class="bento-grid">
-    <article 
-      class="project-card" 
-      *ngFor="let proyecto of proyectos"
-      [ngClass]="proyecto.size"> <div class="card-content">
+    @for (proyecto of proyectos; track $index) {
+      
+      <article 
+        class="project-card" 
+        [ngClass]="proyecto.size"
+        appSpotlight>
+        
+        <div class="spotlight-overlay"></div>
+        
         <div class="image-wrapper">
           <img [src]="proyecto.imagen" [alt]="proyecto.titulo" loading="lazy">
-        </div>
+          <div class="noise-texture"></div> </div>
         
-        <div class="card-info">
-          <div class="tags">
-            <span *ngFor="let tag of proyecto.tags" class="tag">{{ tag }}</span>
+        <div class="card-content">
+          <div class="card-top">
+            <div class="tags">
+              @for (tag of proyecto.tags; track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+            <button class="btn-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
           </div>
-          <h3>{{ proyecto.titulo }}</h3>
-          <button class="btn-arrow">↗</button>
+          
+          <div class="card-bottom">
+            <h3 class="title-project">{{ proyecto.titulo }}</h3>
+            <p class="desc-project">Diseño de interfaz y desarrollo full stack.</p>
+          </div>
         </div>
-      </div>
 
-    </article>
+      </article>
+    }
   </div>
 
 </section>

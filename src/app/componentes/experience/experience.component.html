@@ -1,0 +1,43 @@
+<section class="experience-section" id="experiencia">
+  <div class="container">
+    
+    <header class="section-header">
+      <h2 class="subtitle">TRAYECTORIA PROFESIONAL</h2>
+      <h1 class="title">Mi <span class="highlight">Experiencia</span></h1>
+    </header>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      @for (job of jobs; track $index) {
+        <div class="timeline-item" [class.current]="job.active">
+          
+          <div class="timeline-dot"></div>
+
+          <div class="date-col">
+            <span class="period">{{ job.period }}</span>
+          </div>
+
+          <div class="content-col">
+            <div class="job-card">
+              <div class="card-header">
+                <h3 class="role">{{ job.role }}</h3>
+                <h4 class="company">{{ job.company }}</h4>
+              </div>
+              
+              <p class="description">{{ job.description }}</p>
+              
+              <div class="badges">
+                @for (badge of job.badges; track badge) {
+                  <span class="badge">{{ badge }}</span>
+                }
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Necesario para *ngFor
+import { ContactComponent } from '../contact/contact.component';
 
 @Component({
   selector: 'app-proyectos',

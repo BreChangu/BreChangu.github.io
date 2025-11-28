@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap');
+
+:host {
+  --bg-dark: #0a0a0a;
+  --text-main: #fff;
+  --text-muted: #888;
+  --accent: #6366f1; /* Indigo - Color principal */
+  --accent-glow: rgba(99, 102, 241, 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --border-light: rgba(255, 255, 255, 0.1);
+}
+
+.experience-section {
+  padding: 100px 20px;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Manrope', sans-serif;
+  overflow: hidden; /* Para evitar scroll horizontal por efectos */
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.section-header { margin-bottom: 80px; text-align: center; }
+.subtitle { font-size: 0.85rem; letter-spacing: 3px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.title { font-size: 3.5rem; font-weight: 800; margin: 0; }
+.highlight { 
+  background: linear-gradient(120deg, #fff, #888); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+}
+
+/* --- TIMELINE CONTAINER --- */
+.timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+/* La Línea Vertical */
+.timeline-line {
+  position: absolute;
+  left: 30%; /* La línea no va al centro, sino un poco a la izquierda (diseño asimétrico) */
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--border-light) 10%, var(--border-light) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  display: flex;
+  margin-bottom: 60px;
+  position: relative;
+  opacity: 0.8; /* Un poco apagado por defecto */
+  transition: opacity 0.3s ease;
+}
+
+.timeline-item:hover { opacity: 1; }
+
+/* --- EL PUNTO (DOT) --- */
+.timeline-dot {
+  position: absolute;
+  left: 30%;
+  top: 24px; /* Ajustado para alinear con el título de la tarjeta */
+  width: 12px;
+  height: 12px;
+  background-color: var(--bg-dark);
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot,
+.timeline-item.current .timeline-dot {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow); /* Efecto Neón */
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* --- COLUMNA FECHA (Izquierda) --- */
+.date-col {
+  width: 30%;
+  padding-right: 40px;
+  text-align: right;
+  padding-top: 18px;
+}
+
+.period {
+  font-family: 'Manrope', monospace; /* Look técnico */
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.timeline-item:hover .period { color: #fff; }
+
+/* --- COLUMNA CONTENIDO (Derecha) --- */
+.content-col {
+  width: 70%;
+  padding-left: 40px;
+}
+
+.job-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+/* Efecto Hover en la tarjeta */
+.timeline-item:hover .job-card {
+  transform: translateX(10px); /* Se mueve un poco a la derecha */
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.role { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+.company { font-size: 1rem; font-weight: 400; color: var(--accent); margin-bottom: 1.5rem; }
+
+.description {
+  color: #ccc;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- BADGES (Skills) --- */
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.badge {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s;
+}
+
+.timeline-item:hover .badge {
+  background: rgba(99, 102, 241, 0.1);
+  color: #fff;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .title { font-size: 2.5rem; }
+  
+  .timeline-line { left: 20px; } /* Línea se mueve a la izq en móvil */
+  .timeline-dot { left: 20px; }
+  
+  .timeline-item { flex-direction: column; margin-bottom: 40px; }
+  
+  .date-col {
+    width: 100%;
+    text-align: left;
+    padding-left: 50px; /* Espacio para la línea */
+    padding-bottom: 10px;
+    padding-top: 0;
+  }
+  
+  .content-col {
+    width: 100%;
+    padding-left: 50px;
+  }
+  
+  .job-card { padding: 1.5rem; }
+}

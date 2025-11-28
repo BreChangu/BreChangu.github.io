@@ -3,6 +3,8 @@
 <app-hero></app-hero>
 
 <section class="about-section" id="about">
+  <div class="ambient-glow"></div>
+
   <div class="about-container">
     
     <div class="about-header reveal-on-scroll">
@@ -16,17 +18,49 @@
         Constantemente exploro la intersección entre el <strong>arte</strong> y la <strong>tecnología</strong>.
       </p>
       <p class="bio-text">
-        Mi enfoque no es solo hacer que las cosas funcionen, sino que se sientan bien al usarlas. Fusiono el diseño gráfico con la lógica del desarrollo para construir soluciones digitales que destacan por su estética y rendimiento.
+        Mi enfoque no es solo hacer que las cosas funcionen, sino que se sientan bien al usarlas. Fusiono el diseño gráfico con la lógica del desarrollo.
       </p>
-      
-      <a routerLink="/contacto" class="btn-contact">
-        Trabajemos Juntos <span class="arrow">→</span>
-      </a>
-    </div>
 
+      <app-experience></app-experience>
+
+
+      <div class="skills-marquee-container">
+        <div class="fade-overlay left"></div>
+        <div class="marquee-track">
+          <span class="skill-item">Angular</span>
+          <span class="skill-item">TypeScript</span>
+          <span class="skill-item">CSS</span>
+          <span class="skill-item">UI/UX</span>
+          <span class="skill-item">Illustrator</span>
+          <span class="skill-item">VS Ccode</span>
+          <span class="skill-item">Photoshop</span>
+          <span class="skill-item">TypeScript</span>
+          <span class="skill-item">SCSS</span>
+          <span class="skill-item">UI/UX</span>
+          <span class="skill-item">Figma</span>
+          <span class="skill-item">RxJS</span>
+        </div>
+        <div class="fade-overlay right"></div>
+      </div>
+
+      <div class="buttons-wrapper">
+         <a routerLink="/contacto" class="btn-contact">
+            Trabajemos Juntos <span class="arrow">→</span>
+          </a>
+          <a href="assets/cv-fernando.pdf" download="CV_Fernando_Arzate.pdf" class="btn-cv">
+            Descargar CV
+          </a>
+      </div>
+    </div>
   </div>
 </section>
 
 <app-proyectos></app-proyectos>
 
+
+<app-contact></app-contact> 
+
 <router-outlet></router-outlet>
+<app-footer></app-footer>
+<app-cursor></app-cursor>
+

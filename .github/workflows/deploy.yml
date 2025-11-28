@@ -3,10 +3,10 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # Asegúrate que tu rama principal sea 'main'
 
 permissions:
-  contents: write
+  contents: write # Permiso para que el bot pueda publicar
 
 jobs:
   build-and-deploy:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20 # Usamos la versión estable actual
           cache: 'npm'
 
       - name: Install Dependencies
@@ -27,21 +27,18 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
-      # --- CORRECCIÓN CRÍTICA PARA REPO DE USUARIO ---
-      # Al llamarse 'BreChangu.github.io', la base es la raíz '/'
       - name: Build
+        # Usamos base-href / porque es tu repositorio principal (BreChangu.github.io)
         run: ng build --configuration production --base-href=/
 
-      # --- TRUCO PARA EL 404 ---
-      # Asegúrate de que 'dist/portafolio/browser' coincida con tu angular.json
+      # --- TRUCO PARA QUE FUNCIONEN LAS RUTAS (404) ---
+      # Copiamos index.html a 404.html para que GitHub no de error al recargar
       - name: Copy index.html to 404.html
         run: cp dist/portafolio/browser/index.html dist/portafolio/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/portafolio/browser
+          # ESTA ES LA RUTA EXACTA BASADA EN TU ANGULAR.JSON
+          folder: dist/portafolio/browser 
           branch: gh-pages
-
-
-          # Cambio para forzar deploy ALV

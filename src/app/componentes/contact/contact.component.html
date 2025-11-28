@@ -1,0 +1,68 @@
+<section class="contact-section" id="contacto">
+  <div class="container">
+    
+    <div class="contact-info">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Disponible para trabajar
+      </div>
+
+      <h2 class="title">Hablemos de tu <br> <span class="highlight">próximo proyecto.</span></h2>
+      <p class="description">
+        Estoy buscando oportunidades para colaborar con empresas, agencias o individuos que quieran dejar huella en la web.
+      </p>
+
+      <div class="email-wrapper" (click)="copyEmail()">
+        <div class="icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><path d="M9 9h6v6H9z"></path><path d="M9 1v3"></path><path d="M15 1v3"></path><path d="M9 20v3"></path><path d="M15 20v3"></path><path d="M20 9h3"></path><path d="M20 14h3"></path><path d="M1 9h3"></path><path d="M1 14h3"></path></svg>
+        </div>
+        <div class="email-text">
+          <span class="label">Escríbeme un correo</span>
+          <span class="value">fernando.dev&#64;ejemplo.com</span>
+        </div>
+        <div class="copy-feedback" [class.visible]="emailCopied()">
+          ¡Copiado! ✓
+        </div>
+      </div>
+    </div>
+
+    <div class="form-wrapper">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        
+        <div class="input-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" formControlName="name" placeholder="John Doe">
+          @if (contactForm.get('name')?.invalid && contactForm.get('name')?.touched) {
+            <span class="error-msg">El nombre es requerido.</span>
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" placeholder="john@doe.com">
+          @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
+            <span class="error-msg">Ingresa un correo válido.</span>
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="message">Mensaje</label>
+          <textarea id="message" formControlName="message" rows="4" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+          @if (contactForm.get('message')?.invalid && contactForm.get('message')?.touched) {
+            <span class="error-msg">El mensaje es muy corto.</span>
+          }
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="spinner"></span> Enviando...
+          } @else {
+            Enviar Mensaje <span class="arrow">→</span>
+          }
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,151 @@
+.footer {
+  background-color: #050505; /* Un tono más oscuro que el body (#0a0a0a) para separar visualmente */
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria muy sutil */
+  padding: 4rem 1.5rem 2rem; /* Espaciado generoso */
+  color: #fff;
+  font-family: 'Manrope', sans-serif;
+  margin-top: auto; /* Push to bottom si el contenido es corto */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- TOP SECTION --- */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #fff, #888);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-tagline {
+  color: #888;
+  font-size: 0.9rem;
+  max-width: 300px;
+}
+
+.action-area {
+  text-align: right;
+}
+
+.action-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.email-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+
+  .arrow {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: var(--accent-primary, #6366f1); /* Usa tu variable global si existe, si no un fallback */
+  }
+  
+  &:hover .arrow {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* --- DIVIDER --- */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.1), rgba(255,255,255,0));
+  margin-bottom: 2rem;
+}
+
+/* --- BOTTOM SECTION --- */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #666;
+  
+  .dimmed {
+    color: #444;
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  color: #aaa;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: #fff;
+    color: #000; /* Invertimos colores al hacer hover para máximo contraste */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .action-area {
+    text-align: left; /* Alineamos a la izquierda en móvil */
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse; /* Ponemos los iconos arriba del copyright en móvil */
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}

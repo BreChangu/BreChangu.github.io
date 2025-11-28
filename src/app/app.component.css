@@ -137,3 +137,159 @@
   .about-container {
     grid-template-columns: 1fr;
   }
+
+
+ /* --- CONTENEDOR DE BOTONES --- */
+.buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap; /* Permite que bajen si no hay espacio */
+  align-items: center; /* Alineación vertical perfecta (Eje Y) */
+  gap: 1.5rem; /* Espacio consistente entre botones */
+  margin-top: 2.5rem; /* El margen va EN EL CONTENEDOR, no en los botones */
+  width: 100%;
+}
+
+/* --- ESTILOS BASE COMPARTIDOS --- */
+/* Creamos una clase base implícita para no repetir código */
+.btn-contact,
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  border-radius: 50px; /* Pill shape */
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave "Apple-like" */
+  font-size: 1rem;
+  
+  /* IMPORTANTE: Reseteamos márgenes individuales para que Flexbox mande */
+  margin: 0; 
+}
+
+/* --- BOTÓN 1: CONTACTO (Sólido) --- */
+.btn-contact {
+  background: white;
+  color: #0a0a0a;
+  border: 1px solid white; /* Borde invisible para igualar box-model */
+}
+
+.btn-contact .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Hover Contacto */
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15); /* Glow blanco sutil */
+}
+
+.btn-contact:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* --- BOTÓN 2: DESCARGAR CV (Outline) --- */
+.btn-cv {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+}
+
+.btn-cv svg {
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover CV */
+.btn-cv:hover {
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05); /* Glass feel */
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.btn-cv:hover svg {
+  transform: translateY(-2px); /* Pequeño salto del icono */
+}
+
+/* --- RESPONSIVE (Mobile First approach) --- */
+@media (max-width: 768px) {
+  .buttons-wrapper {
+    flex-direction: column; /* Apilar verticalmente */
+    align-items: stretch; /* Estirar al ancho completo */
+    gap: 1rem;
+  }
+  
+  .btn-contact, 
+  .btn-cv {
+    width: 100%; /* Ocupar todo el ancho disponible */
+  }
+}
+
+
+/* --- 1. AMBIENT GLOW (Fondo atmosférico) --- */
+.about-section {
+  position: relative;
+  overflow: hidden; /* Importante para que la luz no se salga */
+}
+
+
+
+@keyframes pulseGlow {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+  100% { transform: scale(1.2) translate(20px, -20px); opacity: 0.8; }
+}
+
+/* Asegúrate que el contenido esté por encima del glow */
+.about-container {
+  position: relative;
+  z-index: 1; 
+}
+
+/* --- 2. SKILLS MARQUEE (Cinta infinita) --- */
+.skills-marquee-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Que no sea demasiado ancha */
+  overflow: hidden;
+  margin-bottom: 2rem; /* Espacio antes de los botones */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); /* Desvanece los bordes */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 2rem; /* Espacio entre habilidades */
+  width: max-content; /* El ancho se ajusta al contenido */
+  animation: scrollLeft 20s linear infinite;
+}
+
+.skill-item {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Pequeño punto decorativo entre skills */
+.skill-item::after {
+  content: "•";
+  position: absolute;
+  right: -1.2rem;
+  color: #444;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Se mueve hasta la mitad (donde empieza la copia) */
+}
+
+/* Pausar animación al pasar el mouse (Mejora UX) */
+.skills-marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
