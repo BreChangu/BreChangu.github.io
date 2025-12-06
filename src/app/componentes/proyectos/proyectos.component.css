@@ -1,219 +1,195 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700;800&family=Space+Mono:wght@400;700&display=swap');
-
 :host {
-  --bg-dark: #0a0a0a;
-  --card-bg: #111111;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --spotlight-color: rgba(255, 255, 255, 0.15);
-  --gap: 24px;
+  --bg-color: #050505;
+  --card-bg: #0f0f0f;
+  --border: rgba(255,255,255,0.1);
+  --font-main: 'Outfit', sans-serif;
+  --font-display: 'Playfair Display', serif;
 }
 
 .portfolio-section {
-  background-color: var(--bg-dark);
-  color: #fff;
-  font-family: 'Manrope', sans-serif;
-  padding: 100px 40px;
-}
-
-/* --- HEADER --- */
-.portfolio-header {
-  margin-bottom: 80px;
-  max-width: 1200px;
-  margin-inline: auto;
-}
-
-.subtitle {
-  font-family: 'Space Mono', monospace; /* Tipografía técnica */
-  font-size: 0.85rem;
-  color: #666;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.title {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.highlight {
-  background: linear-gradient(90deg, #fff, #666);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  padding: 120px 24px;
+  background-color: var(--bg-color);
+  color: white;
 }
 
 /* --- BENTO GRID --- */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
   max-width: 1200px;
-  margin: 0 auto;
-  grid-auto-flow: dense;
+  margin: 0 auto 60px;
 }
+@media (min-width: 900px) { .wide { grid-column: span 2; } }
 
-/* --- TARJETA --- */
+/* --- TARJETA (Contenedor) --- */
 .project-card {
-  position: relative;
-  border-radius: 20px;
-  background-color: var(--card-bg);
-  overflow: hidden;
-  height: 400px;
-  border: 1px solid var(--card-border); /* Borde sutil por defecto */
-  cursor: pointer;
-  transition: border-color 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Variables dinámicas (iniciadas en 0) */
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --bg-opacity: 0;
   
-  /* Inicializamos variables para el spotlight (por si JS falla) */
-  --mouse-x: -100px;
-  --mouse-y: -100px;
-}
-
-/* Efecto Spotlight: Un radial gradient que sigue al mouse */
-.spotlight-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y), 
-    var(--spotlight-color),
-    transparent 40%
-  );
-  z-index: 2;
-  opacity: 0; /* Se activa con hover */
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  mix-blend-mode: overlay; /* Mezcla el brillo con la imagen */
-}
-
-.project-card:hover .spotlight-overlay {
-  opacity: 1;
+  position: relative;
+  height: 450px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  transition: border-color 0.3s;
+  perspective: 1000px; /* Profundidad 3D */
 }
 
 .project-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.3);
+  z-index: 5;
 }
 
-/* Tamaños Bento */
-@media (min-width: 768px) {
-  .project-card.wide { grid-column: span 2; }
-  .project-card.tall { grid-row: span 2; height: 824px; }
+/* --- VISUAL (Parte Superior) --- */
+.card-visual {
+  flex: 1;
+  position: relative;
+  overflow: hidden; /* Mantiene el brillo dentro */
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
 }
 
-/* --- IMAGEN CON RUIDO --- */
-.image-wrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+/* GLOW (Luz que sigue al mouse) */
+.spotlight-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  opacity: var(--bg-opacity); /* Se prende con JS */
+  transition: opacity 0.3s;
+  pointer-events: none; z-index: 1;
 }
 
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s ease;
-  filter: grayscale(100%) contrast(1.1); /* Estilo elegante B&W inicial */
+/* TILT WRAPPER (El objeto que se mueve) */
+.tilt-wrapper {
+  width: 90%; height: 85%;
+  position: relative; z-index: 2;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  
+  /* MOVIMIENTO */
+  transform: 
+    rotateX(var(--rotate-x)) 
+    rotateY(var(--rotate-y))
+    scale(1);
+    
+  /* TRUCO: Transición rápida en hover, lenta al salir */
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
 
-/* Textura de Grano (Noise) */
-.noise-texture {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+.project-card:hover .tilt-wrapper {
+  transition: transform 0.1s linear; /* Instantáneo para seguir al mouse */
+  transform: 
+    rotateX(var(--rotate-x)) 
+    rotateY(var(--rotate-y))
+    scale(1.02);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+}
+
+/* Imagen */
+.project-img {
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: 12px;
+  filter: brightness(0.85) contrast(1.1);
+  transition: filter 0.3s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.project-card:hover .project-img { filter: brightness(1); }
+
+/* Brillo de Cristal */
+.glass-shine {
+  position: absolute; inset: 0; border-radius: 12px;
+  background: linear-gradient(125deg, rgba(255,255,255,0.2) 0%, transparent 40%);
   pointer-events: none;
-  z-index: 2;
 }
 
-.project-card:hover .image-wrapper img {
-  transform: scale(1.03);
-  filter: grayscale(0%) contrast(1); /* Vuelve el color al hover */
-}
-
-/* --- CONTENIDO --- */
+/* --- INFO (Parte Inferior) --- */
 .card-content {
-  position: absolute;
-  inset: 0;
+  padding: 25px;
+  background: #0a0a0a;
+  border-top: 1px solid var(--border);
   z-index: 3;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%);
+}
+.content-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.year-pill { font-family: monospace; font-size: 0.7rem; color: #666; border: 1px solid var(--border); padding: 4px 10px; border-radius: 50px; }
+.project-title { font-size: 1.5rem; color: white; margin-bottom: 5px; font-weight: 600; }
+.desc-project { font-size: 0.9rem; color: #999; }
+
+/* --- MODAL & GALERÍA (Corregido) --- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+  display: flex; justify-content: center; align-items: center;
+}
+.modal-panel {
+  width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto;
+  background: #111; border: 1px solid var(--border);
+  border-radius: 16px; position: relative;
+}
+.close-btn {
+  position: absolute; top: 20px; right: 20px; z-index: 20;
+  background: #000; border: 1px solid var(--border); color: white;
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
 }
 
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+/* Galería */
+.modal-gallery { position: relative; width: 100%; height: 400px; background: #000; }
+.gallery-frame { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.gallery-img-main { width: 100%; height: 100%; object-fit: contain; } /* Contain para ver foto completa */
+
+/* Controles de Galería */
+.gallery-controls {
+  position: absolute; bottom: 20px; left: 0; width: 100%;
+  display: flex; justify-content: center; align-items: center; gap: 20px;
+  z-index: 10; /* Encima de la imagen */
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.nav-btn {
+  background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--border);
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px); transition: 0.2s;
+}
+.nav-btn:hover { background: white; color: black; }
+
+/* Puntos Indicadores */
+.dots-container { display: flex; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
+.dot {
+  width: 8px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: 0.3s;
+}
+.dot.active { background: white; transform: scale(1.2); }
+
+/* Info del Modal */
+.modal-info-body { padding: 40px; }
+.story-block { margin-bottom: 20px; }
+.story-block h4 { color: #fff; margin-bottom: 5px; font-size: 1rem; }
+.story-block p { color: #ccc; font-size: 0.95rem; line-height: 1.6; }
+.btn-primary {
+  display: inline-block; background: white; color: black; text-decoration: none;
+  padding: 12px 24px; font-weight: 700; border-radius: 4px; margin-top: 20px;
 }
 
-.tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ccc;
+/* NDA Styling */
+.nda-pattern {
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
 }
+.lock-icon { font-size: 2.5rem; opacity: 0.4; margin-bottom: 10px; }
+.nda-label { font-family: monospace; font-size: 0.7rem; text-transform: uppercase; color: #666; }
 
-.btn-arrow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: white;
-  color: black;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  transform: translate(10px, -10px);
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.project-card:hover .btn-arrow {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.title-project {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.desc-project {
-  font-size: 0.95rem;
-  color: #aaa;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease 0.1s; /* Delay pequeño */
-}
-
-.project-card:hover .desc-project {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* --- MOBILE --- */
+/* Mobile */
 @media (max-width: 768px) {
-  .title { font-size: 2.5rem; }
-  .project-card, .project-card.wide, .project-card.tall {
-    height: 350px;
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-  .image-wrapper img { filter: grayscale(0%); } /* En móvil mejor a color siempre */
-  .btn-arrow { opacity: 1; transform: translate(0, 0); } /* Botón siempre visible en móvil */
+  .bento-grid { grid-template-columns: 1fr; }
+  .project-card:hover .tilt-wrapper { transform: none; } /* Desactivar tilt en móvil */
 }
