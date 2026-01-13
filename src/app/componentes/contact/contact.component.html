@@ -1,66 +1,64 @@
 <section class="contact-section" id="contacto">
-  <div class="container">
+  <div class="bento-grid">
     
-    <div class="contact-info">
+    <div class="tile header-tile">
       <div class="status-badge">
         <span class="status-dot"></span>
-        Disponible para trabajar
+        Disponible para nuevos proyectos
       </div>
-
-      <h2 class="title">Hablemos de tu <br> <span class="highlight">próximo proyecto.</span></h2>
+      <h2 class="title">Hablemos de tu <br> <span class="highlight">próximo hit.</span></h2>
       <p class="description">
-        Estoy buscando oportunidades para colaborar con empresas, agencias o individuos que quieran dejar huella en la web.
+        ¿Tienes una idea ambiciosa? Vamos a construirla. Elige tu canal preferido.
       </p>
-
-      <div class="email-wrapper" (click)="copyEmail()">
-        <div class="icon-box">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><path d="M9 9h6v6H9z"></path><path d="M9 1v3"></path><path d="M15 1v3"></path><path d="M9 20v3"></path><path d="M15 20v3"></path><path d="M20 9h3"></path><path d="M20 14h3"></path><path d="M1 9h3"></path><path d="M1 14h3"></path></svg>
-        </div>
-        <div class="email-text">
-          <span class="label">Escríbeme un correo</span>
-          <span class="value">fernando.dev&#64;ejemplo.com</span>
-        </div>
-        <div class="copy-feedback" [class.visible]="emailCopied()">
-          ¡Copiado! ✓
-        </div>
-      </div>
     </div>
 
-    <div class="form-wrapper">
+    <a href="https://wa.me/525512345678?text=Hola,%20vi%20tu%20portafolio%20y%20quiero%20cotizar..." target="_blank" class="tile action-tile whatsapp">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+      </div>
+      <div class="action-text">
+        <span class="label">Chat Rápido</span>
+        <span class="value">WhatsApp</span>
+      </div>
+      <span class="arrow-icon">↗</span>
+    </a>
+
+    <div class="tile action-tile email" (click)="copyEmail()">
+      <div class="icon-box">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><path d="M9 9h6v6H9z"></path><path d="M9 1v3"></path><path d="M15 1v3"></path><path d="M9 20v3"></path><path d="M15 20v3"></path></svg>
+      </div>
+      <div class="action-text">
+        <span class="label">Copiar Correo</span>
+        <span class="value">cfarzate &#64;gmail.com</span>
+      </div>
+      <div class="copy-feedback" [class.visible]="emailCopied()">Copiado!</div>
+    </div>
+
+    <div class="tile form-tile">
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="form-header">
+          <h3>O envíame un brief</h3>
+        </div>
         
         <div class="input-group">
-          <label for="name">Nombre</label>
-          <input type="text" id="name" formControlName="name" placeholder="John Doe">
-          @if (contactForm.get('name')?.invalid && contactForm.get('name')?.touched) {
-            <span class="error-msg">El nombre es requerido.</span>
-          }
+          <input type="text" id="name" formControlName="name" placeholder="Tu Nombre">
         </div>
 
         <div class="input-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" formControlName="email" placeholder="john@doe.com">
-          @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
-            <span class="error-msg">Ingresa un correo válido.</span>
-          }
+          <input type="email" id="email" formControlName="email" placeholder="tu@email.com">
         </div>
 
         <div class="input-group">
-          <label for="message">Mensaje</label>
-          <textarea id="message" formControlName="message" rows="4" placeholder="Cuéntame sobre tu proyecto..."></textarea>
-          @if (contactForm.get('message')?.invalid && contactForm.get('message')?.touched) {
-            <span class="error-msg">El mensaje es muy corto.</span>
-          }
+          <textarea id="message" formControlName="message" rows="3" placeholder="¿Qué tienes en mente?"></textarea>
         </div>
 
         <button type="submit" class="submit-btn" [disabled]="isSubmitting()">
           @if (isSubmitting()) {
-            <span class="spinner"></span> Enviando...
+            <span class="spinner"></span>
           } @else {
-            Enviar Mensaje <span class="arrow">→</span>
+            Enviar Propuesta <span class="arrow">→</span>
           }
         </button>
-
       </form>
     </div>
 
