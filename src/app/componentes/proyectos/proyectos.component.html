@@ -1,110 +1,131 @@
 <section class="portfolio-section" id="proyectos">
-  
   <header class="portfolio-header">
     <h2 class="subtitle">PORTAFOLIO</h2>
-    <h1 class="title font-display">Trabajos <span class="highlight">Recientes</span></h1>
+    <h1 class="title font-display">
+      Trabajos <span class="highlight">Recientes</span>
+    </h1>
   </header>
 
   <div class="bento-grid">
     @for (proyecto of proyectos; track $index) {
-      
-      <article 
-        class="project-card" 
-        [class.wide]="proyecto.size === 'wide'"
-        [class.nda-card]="proyecto.isNDA"
-        appSpotlight 
-        (click)="openProject(proyecto)">
-        
-        <div class="card-visual">
-          <div class="spotlight-glow"></div>
-          
-          <div class="tilt-wrapper">
-            @if (!proyecto.isNDA) {
-              <img [src]="proyecto.imagen" [alt]="proyecto.titulo" class="project-img" loading="lazy">
-              <div class="glass-shine"></div>
-            } @else {
-              <div class="nda-pattern">
-                <span class="lock-icon">🔒</span>
-                <span class="nda-label">Confidencial</span>
-              </div>
-            }
-          </div>
-        </div>
-        
-        <div class="card-content">
-          <div class="content-header">
-            <span class="year-pill">{{ proyecto.year }}</span>
-            <div class="arrow-icon">↗</div>
-          </div>
-          <h3 class="project-title">{{ proyecto.titulo }}</h3>
-          <p class="project-desc">{{ proyecto.descripcionCorta }}</p>
-        </div>
 
-      </article>
+    <article
+      class="project-card"
+      [class.wide]="proyecto.size === 'wide'"
+      [class.nda-card]="proyecto.isNDA"
+      appSpotlight
+      (click)="openProject(proyecto)"
+      tabindex="0"
+      role="button"
+      (keydown.enter)="openProject(proyecto)"
+      (keydown.space)="openProject(proyecto)"
+    >
+      <div class="card-visual">
+        <div class="spotlight-glow"></div>
+
+        <div class="tilt-wrapper">
+          @if (!proyecto.isNDA) {
+          <img
+            [src]="proyecto.imagen"
+            [alt]="proyecto.titulo"
+            class="project-img"
+            loading="lazy"
+          />
+          <div class="glass-shine"></div>
+          } @else {
+          <div class="nda-pattern">
+            <span class="lock-icon">🔒</span>
+            <span class="nda-label">Confidencial</span>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="content-header">
+          <span class="year-pill">{{ proyecto.year }}</span>
+          <div class="arrow-icon">↗</div>
+        </div>
+        <h3 class="project-title">{{ proyecto.titulo }}</h3>
+        <p class="project-desc">{{ proyecto.descripcionCorta }}</p>
+      </div>
+    </article>
     }
   </div>
 
   @if (selectedProject()) {
-    <div class="modal-backdrop" (click)="closeProject()">
-      <div class="modal-panel" (click)="$event.stopPropagation()">
-        
-        <button class="close-btn" (click)="closeProject()">✕</button>
+  <div class="modal-backdrop" (click)="closeProject()">
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeProject()">✕</button>
 
-        @if (!selectedProject()?.isNDA) {
-          <div class="modal-gallery">
-            <div class="gallery-frame">
-              <img [src]="selectedProject()?.galeria ? selectedProject()?.galeria![currentSlide()] : selectedProject()?.imagen" 
-                   class="gallery-img-main">
-            </div>
-
-            @if (selectedProject()?.galeria && selectedProject()?.galeria!.length > 1) {
-              <div class="gallery-controls">
-                <button class="nav-btn prev" (click)="prevSlide($event)">←</button>
-                
-                <div class="dots-container">
-                  @for (img of selectedProject()?.galeria; track $index) {
-                    <span class="dot" 
-                          [class.active]="$index === currentSlide()"
-                          (click)="currentSlide.set($index); $event.stopPropagation()">
-                    </span>
-                  }
-                </div>
-
-                <button class="nav-btn next" (click)="nextSlide($event)">→</button>
-              </div>
-            }
-          </div>
-        }
-
-        <div class="modal-info-body">
-          <h2 class="modal-title">{{ selectedProject()?.titulo }}</h2>
-          
-          <div class="meta-row">
-            <span class="meta-tag">{{ selectedProject()?.role }}</span>
-            <span class="meta-tag">{{ selectedProject()?.year }}</span>
-          </div>
-
-          @if (selectedProject()?.challenge) {
-            <div class="story-block">
-              <h4>El Reto</h4>
-              <p>{{ selectedProject()?.challenge }}</p>
-            </div>
-            <div class="story-block">
-              <h4>La Solución</h4>
-              <p>{{ selectedProject()?.solution }}</p>
-            </div>
-          } @else {
-            <p class="story-text">{{ selectedProject()?.descripcionLarga }}</p>
-          }
-
-          <div class="actions-row">
-            @if (selectedProject()?.linkDemo) {
-              <a [href]="selectedProject()?.linkDemo" target="_blank" class="btn-primary">Ver Demo</a>
-            }
-          </div>
+      @if (!selectedProject()?.isNDA) {
+      <div class="modal-gallery">
+        <div class="gallery-frame">
+          <img
+            [src]="
+              selectedProject()?.galeria
+                ? (selectedProject()?.galeria)![currentSlide()]
+                : selectedProject()?.imagen
+            "
+            class="gallery-img-main"
+          />
         </div>
 
+        @if (selectedProject()?.galeria && selectedProject()?.galeria!.length >
+        1) {
+        <div class="gallery-controls">
+          <button class="nav-btn prev" (click)="prevSlide($event)">←</button>
+
+          <div class="dots-container">
+            @for (img of selectedProject()?.galeria; track $index) {
+            <span
+              class="dot"
+              [class.active]="$index === currentSlide()"
+              (click)="currentSlide.set($index); $event.stopPropagation()"
+            >
+            </span>
+            }
+          </div>
+
+          <button class="nav-btn next" (click)="nextSlide($event)">→</button>
+        </div>
+        }
+      </div>
+      }
+
+      <div class="modal-info-body">
+        <h2 class="modal-title">{{ selectedProject()?.titulo }}</h2>
+
+        <div class="meta-row">
+          <span class="meta-tag">{{ selectedProject()?.role }}</span>
+          <span class="meta-tag">{{ selectedProject()?.year }}</span>
+        </div>
+
+        @if (selectedProject()?.challenge) {
+        <div class="story-block">
+          <h4>El Reto</h4>
+          <p>{{ selectedProject()?.challenge }}</p>
+        </div>
+        <div class="story-block">
+          <h4>La Solución</h4>
+          <p>{{ selectedProject()?.solution }}</p>
+        </div>
+        } @else {
+        <p class="story-text">{{ selectedProject()?.descripcionLarga }}</p>
+        }
+
+        <div class="actions-row">
+          @if (selectedProject()?.linkDemo) {
+          <a
+            [href]="selectedProject()?.linkDemo"
+            target="_blank"
+            class="btn-primary"
+            >Ver Demo</a
+          >
+          }
+        </div>
       </div>
     </div>
+  </div>
   }
 </section>

@@ -35,7 +35,7 @@ export class ProyectosComponent {
   selectedProject = signal<Project | null>(null);
   currentSlide = signal(0);
 
-  // 2. Tus datos ORIGINALES (Intactos) + La tarjeta NDA al final
+  // 2. tarjeta NDA al final
   proyectos: Project[] = [
     {
       titulo: 'Asper Website',
@@ -69,9 +69,9 @@ export class ProyectosComponent {
       features: ['Búsqueda en tiempo real', 'Accesibilidad Web'],
 
       tags: ['Angular', 'Figma', 'Illustrator'],
-      imagen: 'imagenes/botiquin.PNG', // TUS RUTAS ORIGINALES
+      imagen: 'imagenes/botiquin.PNG', // RUTAS ORIGINALES
       galeria: [
-        'assets/asper-cover.jpg', // Tus rutas originales
+        'imagenes/asper-contacto.PNG', //  rutas originales
         'assets/asper-detail-1.jpg',
         'assets/asper-mobile.jpg'
       ],
