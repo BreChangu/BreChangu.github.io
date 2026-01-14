@@ -1,17 +1,18 @@
-import { Component, signal, inject } from '@angular/core'; // <--- 1. Importamos inject
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+// Borré HttpClientModule porque ya no se usa aquí (lo pusimos en app.config.ts)
+import { HttpClient } from '@angular/common/http'; 
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
-  // 2. Inyectamos las dependencias aquí directamente
+  // Inyección moderna
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
 
@@ -20,7 +21,6 @@ export class ContactComponent {
   emailCopied = signal(false);
 
   constructor() {
-    // 3. El constructor queda más limpio, solo para lógica de inicio
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -33,7 +33,7 @@ export class ContactComponent {
       this.isSubmitting.set(true);
       const formData = this.contactForm.value;
 
-      // TU URL DE RENDER CON RESEND
+      // TU URL DE RENDER
       const backendUrl = 'https://backend-portafolio-43oa.onrender.com/send-email';
 
       this.http.post(backendUrl, formData).subscribe({
@@ -42,7 +42,9 @@ export class ContactComponent {
           this.contactForm.reset();
           alert('¡Recibido! Estaré en contacto pronto. 🚀');
         },
-        error: (err) => {
+        // --- AQUÍ ESTABA EL ERROR ---
+        // Le agregamos ": any" para que TypeScript deje de quejarse
+        error: (err: any) => { 
           console.error(err);
           this.isSubmitting.set(false);
           alert('Hubo un error técnico. Intenta por WhatsApp.');
