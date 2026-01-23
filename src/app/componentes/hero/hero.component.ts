@@ -8,11 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent { 
-  // Aquí podrías agregar lógica si quisieras que el "scroll" fuera automático al hacer click
   scrollToProjects() {
     const projectsSection = document.getElementById('proyectos');
     if (projectsSection) {
       projectsSection.scrollIntoView({ behavior: 'smooth' });
+      
+    }
+  }
+
+  scrollToContact() {
+    const contactSection = document.getElementById('contacto');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

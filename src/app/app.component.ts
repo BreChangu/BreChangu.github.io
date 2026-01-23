@@ -48,4 +48,11 @@ export class AppComponent implements AfterViewInit {
       }, 100); // 100ms es imperceptible para el ojo humano pero una eternidad para la CPU
     }
   }
+
+  scrollToContact() {
+    const contactSection = document.getElementById('contacto');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
